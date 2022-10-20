@@ -31,12 +31,17 @@ public class TitleWindow : CommonSys
     }
 
     public void OnClickStartButton(){
+        // オープニング再生フラグを立てる
+        CommonSys.opening = true;
         // フェードアウトして、拠点画面へ遷移
         StartCoroutine(base.SceneChangeFadeOut(SCENE_TYPE.HOME));
     }
 
     public void OnClickLoadButton(){
-
+        // オープニング再生フラグを折る
+        CommonSys.opening = false;
+        // フェードアウトして、拠点画面へ遷移
+        StartCoroutine(base.SceneChangeFadeOut(SCENE_TYPE.HOME));
     }
 
     public void OnClickOptionButton(){

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
@@ -12,10 +13,16 @@ public class CommonSys : MonoBehaviour
 
     public static bool PAUSE = false;   //!< 一時停止状態
     public OPTION option = new OPTION();    //!< オプション全般
+    
     public GameObject FadeObject;   //!< 画面暗転オブジェクト
     public bool FADE_COMPLETE = false; //!< フェード完了確認用フラグ
     public bool reControllAfterFade = false; //!< フェード後に操作系統を元に戻すかどうか
-    public InputSystemUIInputModule inputSystem;
+    public InputSystemUIInputModule inputSystem;    //!< 入力イベント統括システム
+
+    public CommonSound bgm = null;  //!< BGM再生用コンポーネント
+    public CommonSound se = null;   //!< SE再生用コンポーネント
+
+    public static bool opening = false; //!< オープニングフラグ
 
     public virtual void Awake(){
         // フェード用オブジェクトをセット
@@ -73,6 +80,42 @@ public class CommonSys : MonoBehaviour
         SceneManager.LoadSceneAsync(((int)scene), LoadSceneMode.Single);
     }
 
+    // フェードインとフェードアウトを一度に行う
+    public IEnumerator SceneHereFadeInAndOut(Func<bool> betweenFunc, Func<bool> retFunc){
+        //フェードアウト
+        FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.OUT, this, false);
+        // 入力操作禁止
+        inputSystem.enabled = false;
+        // 一時停止状態
+        PAUSE = true;
+        // フェード完了フラグを念のため折っておく
+        FADE_COMPLETE = false;
+
+        // フェード完了まで待機
+        while(!FADE_COMPLETE){
+            yield return null;
+        }
+
+        // フェードアウト後に起動する関数があれば起動
+        if(betweenFunc != null){
+            betweenFunc();
+        }
+
+        FADE_COMPLETE = false;
+        // フェードイン
+        FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.IN, this, true);
+
+        // フェード完了まで待機
+        while(!FADE_COMPLETE){
+            yield return null;
+        }
+
+        // 戻りの関数が指定されている場合は戻り関数を起動
+        if(retFunc != null){
+            retFunc();
+        }
+    }
+
     void LateUpdate() {
         // フェードが完了したら操作権限を元に戻す
         if(FADE_COMPLETE && reControllAfterFade){
@@ -91,7 +134,7 @@ public class OPTION : OptionBase
     /// <param name="volume">音量</param>
     /// <param name="type">音源タイプ</param>
     /// <param name="source">AudioSource</param>
-    public void SetVolume(float volume, Sound type, AudioSource source = null){
+    public void SetVolume(float volume, Sound type, CommonSound source = null){
         switch(type){
             case Sound.BGM:
                 OptionBase.BGMVolume = volume;
@@ -102,7 +145,7 @@ public class OPTION : OptionBase
         }
 
         if(source != null){
-            source.volume = volume;
+            source.ChangeVolume(volume);
         }
     }
 
