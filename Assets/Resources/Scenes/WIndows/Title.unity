@@ -488,6 +488,7 @@ GameObject:
   - component: {fileID: 600751300}
   - component: {fileID: 600751299}
   - component: {fileID: 600751298}
+  - component: {fileID: 600751302}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -577,6 +578,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &600751302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600751297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513b663e8a34da74ab3bf13d69d0cbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeObject: {fileID: 0}
+  FADE_COMPLETE: 0
+  reControllAfterFade: 0
+  inputSystem: {fileID: 1133162594}
+  bgm: {fileID: 2006415192}
+  se: {fileID: 991788338}
+  startButton: {fileID: 683960277}
+  loadButton: {fileID: 807627858}
+  optionButton: {fileID: 1891871466}
 --- !u!1 &671156825
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +756,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737484296}
+      - m_Target: {fileID: 600751302}
         m_TargetAssemblyTypeName: TitleWindow, Assembly-CSharp
         m_MethodName: OnClickStartButton
         m_Mode: 1
@@ -868,7 +890,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737484296}
+      - m_Target: {fileID: 600751302}
         m_TargetAssemblyTypeName: TitleWindow, Assembly-CSharp
         m_MethodName: OnClickLoadButton
         m_Mode: 1
@@ -1677,7 +1699,6 @@ GameObject:
   - component: {fileID: 1737484295}
   - component: {fileID: 1737484294}
   - component: {fileID: 1737484293}
-  - component: {fileID: 1737484296}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1753,27 +1774,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1737484296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737484292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 513b663e8a34da74ab3bf13d69d0cbc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FadeObject: {fileID: 0}
-  FADE_COMPLETE: 0
-  reControllAfterFade: 0
-  inputSystem: {fileID: 1133162594}
-  bgm: {fileID: 2006415192}
-  se: {fileID: 991788338}
-  startButton: {fileID: 683960277}
-  loadButton: {fileID: 807627858}
-  optionButton: {fileID: 1891871466}
 --- !u!1 &1891871466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737484296}
+      - m_Target: {fileID: 600751302}
         m_TargetAssemblyTypeName: TitleWindow, Assembly-CSharp
         m_MethodName: OnClickOptionButton
         m_Mode: 1
@@ -1951,11 +1951,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f6e3e1a13c9d9924b86b1b6a33e1c2e9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2133,7 +2133,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737484296}
+      - m_Target: {fileID: 600751302}
         m_TargetAssemblyTypeName: TitleWindow, Assembly-CSharp
         m_MethodName: OnClickEndButton
         m_Mode: 1

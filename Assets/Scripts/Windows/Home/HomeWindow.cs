@@ -8,10 +8,16 @@ public class HomeWindow : CommonSys
 {
     public GameObject GoBoukenButton;
     public GameObject Canvas;
+    public AudioClip homeBgm;
 
     public override void Awake()
     {
         base.Awake();
+
+        // ホームBGMが無い場合はここで読み込んでおく
+        if(homeBgm == null){
+            homeBgm = Resources.Load<AudioClip>(CommonSound.BGMPath + "Home.mp3");
+        }
 
         // オープニングの場合は、シナリオを読み出す
         if(CommonSys.opening){
@@ -19,6 +25,9 @@ public class HomeWindow : CommonSys
             StartCoroutine(LoadOpening());
             // Canvasを非表示にしておく
             Canvas.SetActive(false);
+        } else {
+            // オープニングが再生されない場合は、音楽を流す
+            bgm.Play(homeBgm);
         }
     }
 
@@ -26,7 +35,7 @@ public class HomeWindow : CommonSys
         // シナリオシーン読み出し
         yield return SceneManager.LoadSceneAsync(((int)SCENE_TYPE.SCENARIO), LoadSceneMode.Additive);
         // オープニングシナリオをセット
-        SceneManager.GetSceneByName("adv").GetRootGameObjects()[0].GetComponent<ScenarioWindow>().SetData("opening", bgm, se, OpeningEnd);
+        SceneManager.GetSceneByBuildIndex((int)SCENE_TYPE.SCENARIO).GetRootGameObjects()[0].GetComponent<ScenarioWindow>().SetData("opening", bgm, se, OpeningEnd);
     }
 
     void Start(){
@@ -51,6 +60,8 @@ public class HomeWindow : CommonSys
     public bool OpeningEndBetween(){
         // シナリオを読み終わったら、表示を戻す
         Canvas.SetActive(true);
+        // 音楽を流し始める
+        bgm.Play(homeBgm);
         return true;
     }
 

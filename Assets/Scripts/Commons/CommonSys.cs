@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
@@ -55,8 +56,14 @@ public class CommonSys : MonoBehaviour
     public virtual void BeforStart() {
         // システムを登録
         SetSystem(this); 
+        
         // オプション読み込み
         option.LoadOption();
+        
+        // BGM,SEの音量を設定
+        option.SetVolume(option.GetVolume(OptionBase.Sound.BGM), OptionBase.Sound.BGM, bgm);
+        option.SetVolume(option.GetVolume(OptionBase.Sound.SE), OptionBase.Sound.SE, se);
+
         // フェードイン開始フラグ設定
         FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.IN, this, true);
     }
@@ -114,6 +121,28 @@ public class CommonSys : MonoBehaviour
         if(retFunc != null){
             retFunc();
         }
+    }
+
+    // 専用シーンを追加
+    public IEnumerator SceneAdditive<T>(SCENE_TYPE type, Func<bool> retFunc) where T : IWindow{
+        // すでに読み込まれているかを確認
+        string sceneName = SceneManager.GetSceneByBuildIndex((int)type).name;
+        Scene scene = new Scene();
+
+        if(sceneName == null){
+            // 読み込まれていない場合は、シーンを読み込む
+            scene = SceneManager.LoadScene(((int)type), new LoadSceneParameters(LoadSceneMode.Additive));
+        } else {
+            // 読み込まれている場合はsceneを取得
+            scene = SceneManager.GetSceneByName(sceneName);
+        }
+
+        yield return new WaitUntil(() => scene.isLoaded);
+
+        // 読み込んだシーンに戻り関数と現在のクラスを設置
+        scene.GetRootGameObjects()[0].GetComponent<T>().SetData(retFunc, this);
+        // 読み込んだシーンをフォーカスする
+        SceneManager.SetActiveScene(scene);
     }
 
     void LateUpdate() {

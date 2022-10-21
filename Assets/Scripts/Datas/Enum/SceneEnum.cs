@@ -3,4 +3,5 @@ public enum SCENE_TYPE {
     HOME,
     MAP,
     SCENARIO,
+    OPTION,
 }

@@ -572,11 +572,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 6f0622fe0ec62084bac0fcb42aa42586, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2047,6 +2047,7 @@ MonoBehaviour:
   se: {fileID: 1761816931}
   GoBoukenButton: {fileID: 1249965402}
   Canvas: {fileID: 1082785741}
+  homeBgm: {fileID: 8300000, guid: 6f0622fe0ec62084bac0fcb42aa42586, type: 3}
 --- !u!1 &2100199786
 GameObject:
   m_ObjectHideFlags: 0

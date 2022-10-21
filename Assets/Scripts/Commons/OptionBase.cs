@@ -10,9 +10,9 @@ public class OptionBase
        , SE
     }
 
-    private static float _BGMVolume = 0.5f;    //!< BGM音量
-    private static float _SEVolume  = 0.5f;    //!< SE音量
-    private static float _TextSpeed = 0.07f;   //!< 文字表示速度
+    private static float _BGMVolume = 0.1f;    //!< BGM音量
+    private static float _SEVolume  = 0.1f;    //!< SE音量
+    private static float _TextSpeed = 0.1f;   //!< 文字表示速度
 
     public static float BGMVolume { 
         protected set{ 
@@ -25,7 +25,7 @@ public class OptionBase
     public static float SEVolume { 
         protected set{
             if(value <= 1 && value >= 0){
-                SEVolume = value;
+                _SEVolume = value;
             }
         }
         get { return _SEVolume; }

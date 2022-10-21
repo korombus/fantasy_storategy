@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class CommonSound : MonoBehaviour {
 
     // 定数
-    public const string BGMPath    = "Sounds/BGM/";
-    public const string SEPath     = "Sounds/SE/";
+    public const string BGMPath    = "Music/BGM/";
+    public const string SEPath     = "Music/SE/";
 
     void Awake() {
         if (this.gameObject.GetComponent<AudioSource>() == null) {

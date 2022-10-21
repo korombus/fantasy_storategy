@@ -14,7 +14,7 @@ public class TitleWindow : CommonSys
     {
         base.Awake();
         // フェードオブジェクトはすべてのシーンで使い回す
-        if(base.FadeObject != null && base.FadeObject.scene.name == "Title"){
+        if(base.FadeObject != null && base.FadeObject.scene.name == SceneManager.GetSceneByBuildIndex((int)SCENE_TYPE.TITLE).name){
             DontDestroyOnLoad(base.FadeObject);
         }
     }
@@ -45,7 +45,18 @@ public class TitleWindow : CommonSys
     }
 
     public void OnClickOptionButton(){
+        // オプションシーンを追加
+        StartCoroutine(SceneAdditive<OptionWindow>(SCENE_TYPE.OPTION, FinishOptionSetting));
+    }
 
+    public bool FinishOptionSetting(){
+        // フォーカスをオプションボタンに戻す
+        EventSystem.current.SetSelectedGameObject(optionButton);
+        // 戻ってきたらオプションをセーブ
+        option.SaveOption();
+        // Title画面を復活
+        this.gameObject.SetActive(true);
+        return true;
     }
 
     public void OnClickEndButton(){

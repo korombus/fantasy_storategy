@@ -2,3 +2,7 @@
 
 〇フォント
 Zen Maru Gothic https://fonts.google.com/specimen/Zen+Maru+Gothic/about
+
+〇BGM
+音楽：BGMer
+http://bgmer.net
