@@ -31,7 +31,8 @@ public class CommonSys : MonoBehaviour
             GameObject[] fadeObjects = GameObject.FindGameObjectsWithTag("Fade");
             if(fadeObjects.Length == 1){
                 FadeObject = fadeObjects[0];
-            } else {
+            } else
+            if(fadeObjects.Length > 1) {
                 // 複数ある場合は、破壊不可な方を取得するようにする
                 if(fadeObjects[0].scene.name == "Title"){
                     DestroyImmediate(fadeObjects[0]);
@@ -65,18 +66,29 @@ public class CommonSys : MonoBehaviour
         option.SetVolume(option.GetVolume(OptionBase.Sound.SE), OptionBase.Sound.SE, se);
 
         // フェードイン開始フラグ設定
-        FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.IN, this, true);
+        if(FadeObject != null){
+            FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.IN, this, true);
+        } else {
+            // フェード用のオブジェクトが無い場合はそのまま通す
+            inputSystem.enabled = true;
+            PAUSE = false;
+            FADE_COMPLETE = true;
+        }
     }
 
     // シーン遷移時のフェードアウト制御
     public IEnumerator SceneChangeFadeOut(SCENE_TYPE scene){
-        FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.OUT, this, false);
-        // 入力操作禁止
-        inputSystem.enabled = false;
-        // 一時停止状態
-        PAUSE = true;
-        // フェード完了フラグを念のため折っておく
-        FADE_COMPLETE = false;
+        if(FadeObject != null){
+            FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.OUT, this, false);
+            // 入力操作禁止
+            inputSystem.enabled = false;
+            // 一時停止状態
+            PAUSE = true;
+            // フェード完了フラグを念のため折っておく
+            FADE_COMPLETE = false;
+        } else {
+            FADE_COMPLETE = true;
+        }
 
         // フェード完了まで待機
         while(!FADE_COMPLETE){
@@ -89,14 +101,18 @@ public class CommonSys : MonoBehaviour
 
     // フェードインとフェードアウトを一度に行う
     public IEnumerator SceneHereFadeInAndOut(Func<bool> betweenFunc, Func<bool> retFunc){
-        //フェードアウト
-        FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.OUT, this, false);
-        // 入力操作禁止
-        inputSystem.enabled = false;
-        // 一時停止状態
-        PAUSE = true;
-        // フェード完了フラグを念のため折っておく
-        FADE_COMPLETE = false;
+        if(FadeObject != null){
+                //フェードアウト
+            FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.OUT, this, false);
+            // 入力操作禁止
+            inputSystem.enabled = false;
+            // 一時停止状態
+            PAUSE = true;
+            // フェード完了フラグを念のため折っておく
+            FADE_COMPLETE = false;
+        } else {
+            FADE_COMPLETE = true;
+        }
 
         // フェード完了まで待機
         while(!FADE_COMPLETE){
@@ -108,9 +124,11 @@ public class CommonSys : MonoBehaviour
             betweenFunc();
         }
 
-        FADE_COMPLETE = false;
-        // フェードイン
-        FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.IN, this, true);
+        if(FadeObject != null){
+            FADE_COMPLETE = false;
+            // フェードイン
+            FadeObject.GetComponent<FadeController>().SetData(FadeController.FADE_STATE.IN, this, true);
+        }
 
         // フェード完了まで待機
         while(!FADE_COMPLETE){
