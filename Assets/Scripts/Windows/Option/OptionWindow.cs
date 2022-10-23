@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class OptionWindow : MonoBehaviour, IWindow
 {
@@ -12,6 +13,9 @@ public class OptionWindow : MonoBehaviour, IWindow
     public GameObject poolFocusGameObject = null;   //!< 確認パネル表示時の現在フォーカスされているオブジェクト一時保持
     public Func<bool> returnFunc = null;
     public CommonSys optionOrigin = null;
+
+    public bool isKeyBinding = false;   //!< キーコンフィグ中フラグ
+    public string setterKey = "";   //!< 入力されたキー保持用
 
     void OnEnable(){
         // 最初のオプションをフォーカスしておく
@@ -47,7 +51,9 @@ public class OptionWindow : MonoBehaviour, IWindow
                         // 現在の設定を反映
                         optionItem.GetComponent<MusicOption>().SetData(optionOrigin.option.GetVolume(OptionBase.Sound.BGM), optionOrigin.option.GetVolume(OptionBase.Sound.SE));
                     break;
-                    case "KEYBOARD":
+                    case "KEYBIND":
+                        // 現在の設定を反映
+                        optionItem.GetComponent<KeyBindOption>().SetData(optionOrigin.option.GetKeyBind());
                     break;
                     case "DISPLAY":
                     break;
@@ -83,14 +89,22 @@ public class OptionWindow : MonoBehaviour, IWindow
     }
 
     void LateUpdate() {
-        // エスケープか、Xボタンが押されたら
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2)){
-            // 現在のフォーカスしているオブジェクトを保存
-            poolFocusGameObject = EventSystem.current.currentSelectedGameObject;
-            // OptionからTitleへ戻る確認パネルを表示
-            comfirmPanel.SetActive(true);
-            // フォーカスをYesボタンにする
-            EventSystem.current.SetSelectedGameObject(CommonUtil.SearchObjectChild("YesButton", comfirmPanel.transform));
+        // キー設定中は専用の機能を動かす
+        if(!isKeyBinding){
+            // エスケープか、Xボタンが押されたら
+            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton2)){
+                // 現在のフォーカスしているオブジェクトを保存
+                poolFocusGameObject = EventSystem.current.currentSelectedGameObject;
+                // OptionからTitleへ戻る確認パネルを表示
+                comfirmPanel.SetActive(true);
+                // フォーカスをYesボタンにする
+                EventSystem.current.SetSelectedGameObject(CommonUtil.SearchObjectChild("YesButton", comfirmPanel.transform));
+            }
+        } else {
+            // 押されたキーを取得しておく
+            if(Input.anyKey){
+                setterKey = JoysticControl.GetInputJoysticButtonType().ToString();
+            }
         }
     }
 }

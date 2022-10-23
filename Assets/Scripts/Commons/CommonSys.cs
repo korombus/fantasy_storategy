@@ -211,6 +211,23 @@ public class OPTION : OptionBase
     }
 
     /// <summary>
+    /// キー配置を変更
+    /// </summary>
+    /// <param name="commandName">コマンド名</param>
+    /// <param name="code">KeyCode</param>
+    public void SetKeyBind(string commandName, KeyCode code){
+        OptionBase.KeyBind[commandName] = code;
+    }
+
+    /// <summary>
+    /// キー配置設定を取得
+    /// </summary>
+    /// <returns></returns>
+    public Dictionary<string, KeyCode> GetKeyBind(){
+        return OptionBase.KeyBind;
+    }
+
+    /// <summary>
     /// オプション読み込み
     /// </summary>
     public void LoadOption(){
