@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class OptionWindow : MonoBehaviour, IWindow
 {
     public GameObject musicTab; //!< 音量設定タブ
-    public GameObject comfirmPanel; //!< 確認パネル
+    public GameObject confirmPanelPrefab; //!< 確認パネルプレハブ
+    public GameObject confirmPanel; //!< 確認パネル
     public List<GameObject> options = new List<GameObject>(); //!< オプション一覧
 
     public GameObject poolFocusGameObject = null;   //!< 確認パネル表示時の現在フォーカスされているオブジェクト一時保持
@@ -20,8 +20,10 @@ public class OptionWindow : MonoBehaviour, IWindow
     void OnEnable(){
         // 最初のオプションをフォーカスしておく
         EventSystem.current.SetSelectedGameObject(musicTab);
-        // 確認パネルは非表示にしておく
-        comfirmPanel.SetActive(false);
+        // 確認パネルを読み込み、非表示にしておく
+        confirmPanel = CommonUtil.PrefabInstance(confirmPanelPrefab, this.transform);
+        confirmPanel.GetComponent<ConfirmPanel>().SetData("オプションを閉じますか？", OnClickConFirmButton, OnClickConFirmButton);
+        confirmPanel.SetActive(false);
     }
 
     /// <summary>
@@ -70,7 +72,7 @@ public class OptionWindow : MonoBehaviour, IWindow
         });
     }
 
-    public void OnClickComFirmButton(string type){
+    public void OnClickConFirmButton(string type){
         // 閉じる場合は、オブジェクト非表示にしておく
         if(type.ToUpper() == "YES"){
             this.gameObject.SetActive(false);
@@ -82,7 +84,7 @@ public class OptionWindow : MonoBehaviour, IWindow
         } 
         // 閉じない場合は、確認パネルを消してフォーカスを戻す
         else {
-            comfirmPanel.SetActive(false);
+            confirmPanel.SetActive(false);
             // 前に選択していたオブジェクトにフォーカスを戻す
             EventSystem.current.SetSelectedGameObject(poolFocusGameObject);
         }
@@ -96,9 +98,9 @@ public class OptionWindow : MonoBehaviour, IWindow
                 // 現在のフォーカスしているオブジェクトを保存
                 poolFocusGameObject = EventSystem.current.currentSelectedGameObject;
                 // OptionからTitleへ戻る確認パネルを表示
-                comfirmPanel.SetActive(true);
+                confirmPanel.SetActive(true);
                 // フォーカスをYesボタンにする
-                EventSystem.current.SetSelectedGameObject(CommonUtil.SearchObjectChild("YesButton", comfirmPanel.transform));
+                EventSystem.current.SetSelectedGameObject(CommonUtil.SearchObjectChild("YesButton", confirmPanel.transform));
             }
         } else {
             // 押されたキーを取得しておく

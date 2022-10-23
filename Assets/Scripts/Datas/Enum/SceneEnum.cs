@@ -4,4 +4,5 @@ public enum SCENE_TYPE {
     MAP,
     SCENARIO,
     OPTION,
+    RENKIN,
 }

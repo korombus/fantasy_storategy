@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -84,13 +83,14 @@ public class HomeWindow : CommonSys
     /// 錬金室へ
     /// </summary>
     public void OnClickGoRenkinButton(){
-
+        // フェードアウトして、錬金画面へ遷移
+        StartCoroutine(base.SceneChangeFadeOut(SCENE_TYPE.RENKIN));
     }
 
     /// <summary>
     /// 鍛冶処へ
     /// </summary>
-    public void OnCliCkGoKajiButton(){
+    public void OnClickGoKajiButton(){
 
     }
 
