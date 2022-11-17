@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340704a9c26060741a4ca3d9f97cada4, type: 3}
+  m_Name: MasterData
+  m_EditorClassIdentifier: 
+  MaterialMaster:
+  - Name: "\u3084\u304F\u305D\u3046"
+    Discription: "\u50B7\u85AC\u306E\u57FA\u306B\u306A\u308B\u8349\u3002\u305D\u306E\u307E\u307E\u3067\u3082\u4F7F\u3048\u308B\u304C\u3001\u52B9\u679C\u306F\u4F4E\u3044\u3002"
+    IconTextureName: null
+    UseLimit: 1
+    ItemEffectType: SOFT_MATERIAL
+    EffectValue: 10
+    SellValue: 5
+    BuyValue: 10
+  - Name: "\u8056\u306A\u308B\u7070"
+    Discription: "\u306A\u3093\u304B\u7DBA\u9E97\u306A\u7070\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3051\u3069\u3001\u3044\u3064\u51FA\u305F\u4F55\u306E\u7070\u306A\u306E\u304B\u306F\u3088\u304F\u5206\u304B\u3063\u3066\u3044\u306A\u3044\u3002"
+    IconTextureName: null
+    UseLimit: 1
+    ItemEffectType: HARD_MATERIAL
+    EffectValue: 0
+    SellValue: 7
+    BuyValue: 14
+  - Name: "\u4F4E\u7D1A\u56DE\u5FA9\u30DD\u30FC\u30B7\u30E7\u30F3"
+    Discription: "\u8CEA\u306E\u4F4E\u3044\u56DE\u5FA9\u30DD\u30FC\u30B7\u30E7\u30F3\u3002\u56DE\u5FA9\u91CF\u306F\u304A\u5BDF\u3057\u306A\u306E\u3067\u3001\u3082\u3063\u3068\u826F\u3044\u3082\u306E\u3092\u8CB7\u304A\u3046\u3002"
+    IconTextureName: null
+    UseLimit: 1
+    ItemEffectType: RECOVER
+    EffectValue: 20
+    SellValue: 30
+    BuyValue: 100
+  ToolMaster:
+  - Name: "\u307C\u308D\u3044\u3064\u308B\u306F\u3057"
+    Discription: "\u4F7F\u3044\u53E4\u3055\u308C\u305F\u3064\u308B\u306F\u3057\u3002\u5E74\u5B63\u306F\u5165\u3063\u3066\u3044\u308B\u304C\u3001\u3044\u3064\u58CA\u308C\u3066\u3082\u304A\u304B\u3057\u304F\u306A\u3044\u3002"
+    IconTextureName: null
+    UseLimit: 20
+    ItemEffectType: TOOL
+    EffectValue: 10
+    SellValue: 50
+    BuyValue: 120
+  - Name: "\u666E\u901A\u306E\u3064\u308B\u306F\u3057"
+    Discription: "\u4F55\u306E\u5909\u54F2\u3082\u306A\u3044\u305F\u3060\u306E\u3064\u308B\u306F\u3057\u3002"
+    IconTextureName: null
+    UseLimit: 50
+    ItemEffectType: TOOL
+    EffectValue: 10
+    SellValue: 100
+    BuyValue: 170
+  - Name: "\u826F\u3044\u3064\u308B\u306F\u3057"
+    Discription: "\u4F7F\u3044\u8FBC\u307E\u308C\u3066\u78E8\u304B\u308C\u305F\u3064\u308B\u306F\u3057\u3002\u624B\u306B\u99B4\u67D3\u3080\u611F\u3058\u304C\u5FC3\u5730\u3088\u3044\u3002"
+    IconTextureName: null
+    UseLimit: 40
+    ItemEffectType: TOOL
+    EffectValue: 20
+    SellValue: 70
+    BuyValue: 200
+  EquipmentMaster:
+  - Name: "\u3069\u3046\u306E\u3064\u308B\u304E"
+    Discription: "\u9285\u88FD\u306E\u5263\u3002\u6301\u3061\u624B\u3082\u9285\u306A\u306E\u3067\u6691\u3044\u65E5\u306B\u4F7F\u3044\u305F\u304F\u306A\u3044\u3002"
+    IconTextureName: null
+    UseLimit: 100
+    ItemEffectType: EQUIPMENT
+    EffectValue: 0
+    SellValue: 100
+    BuyValue: 200
+    Atk: 5
+    Def: 0
+    Int: 0
+    Agi: 0
+    Hp: 0
+    Mp: 0

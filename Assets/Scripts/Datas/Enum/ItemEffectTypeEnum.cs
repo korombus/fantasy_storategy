@@ -1,0 +1,9 @@
+public enum ITEM_EFFECT_TYPE{
+    NONE = 0,
+    RECOVER,
+    EVENT,
+    HARD_MATERIAL,
+    SOFT_MATERIAL,
+    TOOL,
+    EQUIPMENT,
+}
