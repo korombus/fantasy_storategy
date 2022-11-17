@@ -13,6 +13,9 @@ namespace Cainos.PixelArtTopDown_Basic
 
         private Animator animator;
 
+        private bool isNormalEvent = false;
+        private GameObject eventTarget = null;
+
         private void Start()
         {
             animator = GetComponent<Animator>();
@@ -23,6 +26,24 @@ namespace Cainos.PixelArtTopDown_Basic
             // 一時停止になってない場合は移動許可
             if(!MapWindow.PAUSE){
                 Vector2 dir = Vector2.zero;
+
+                if(isNormalEvent){
+                    if(Input.GetKeyDown(KeyCode.JoystickButton0)){
+                        switch(eventTarget.tag){
+                            case "Chest":
+                                int itemId = eventTarget.GetComponent<OpenChestEvent>().OpenChest();
+                                if(itemId > -1){
+                                    CommonSys.GetSystem<MapWindow>().DispEventMessage("何かを手に入れた。");
+                                } else {
+                                    CommonSys.GetSystem<MapWindow>().DispEventMessage("宝箱はからっぽだった。");
+                                }
+                            break;
+                            default:
+                                isNormalEvent = false;
+                            break;
+                        }
+                    }
+                }
 
                 // ダッシュ操作
                 dash = false;
@@ -69,6 +90,12 @@ namespace Cainos.PixelArtTopDown_Basic
             if(other.gameObject.tag == "Goal"){
                 GetComponent<GaugeStatus>().SetData(CommonSys.GetSystem<MapWindow>().MapClear, "帰還中");
             }
+
+            // 宝箱の開けられる領域に入ったら開けるイベントを発生できるようにする
+            if(other.gameObject.tag == "Chest"){
+                isNormalEvent = true;
+                eventTarget = other.gameObject;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -76,6 +103,12 @@ namespace Cainos.PixelArtTopDown_Basic
             // ゴールから出たらゲージ初期化
             if(other.gameObject.tag == "Goal"){
                 GetComponent<GaugeStatus>().StopGauge();
+            }
+
+            // 宝箱イベントの発生を抑制
+            if(other.gameObject.tag == "Chest"){
+                isNormalEvent = false;
+                eventTarget = null;
             }
         }
     }
