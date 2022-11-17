@@ -12414,6 +12414,7 @@ MonoBehaviour:
   isEventMessage: 0
   CLEAR: 0
   eventMessageWindow: {fileID: 46096164}
+  messageTimer: 0
 --- !u!1001 &530854816
 PrefabInstance:
   m_ObjectHideFlags: 0

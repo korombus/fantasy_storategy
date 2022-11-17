@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1082785746}
+      - m_Target: {fileID: 2036636679}
         m_TargetAssemblyTypeName: HomeWindow, Assembly-CSharp
         m_MethodName: OnClickGoBokujouButton
         m_Mode: 1
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2036636679}
         m_TargetAssemblyTypeName: HomeWindow, Assembly-CSharp
         m_MethodName: OnClickGoTitleButton
         m_Mode: 1
@@ -1036,7 +1036,6 @@ GameObject:
   - component: {fileID: 1082785744}
   - component: {fileID: 1082785743}
   - component: {fileID: 1082785742}
-  - component: {fileID: 1082785746}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1126,27 +1125,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1082785746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082785741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1124a05a88aaa148938dff61f40f66a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FadeObject: {fileID: 0}
-  FADE_COMPLETE: 0
-  reControllAfterFade: 0
-  inputSystem: {fileID: 831904789}
-  bgm: {fileID: 404347644}
-  se: {fileID: 1761816931}
-  GoBoukenButton: {fileID: 1249965402}
-  Canvas: {fileID: 1082785741}
-  homeBgm: {fileID: 8300000, guid: 6f0622fe0ec62084bac0fcb42aa42586, type: 3}
 --- !u!1 &1084895422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1345,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2036636679}
         m_TargetAssemblyTypeName: HomeWindow, Assembly-CSharp
         m_MethodName: OnClickGoBoukenButton
         m_Mode: 1
@@ -1501,7 +1479,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1082785746}
+      - m_Target: {fileID: 2036636679}
         m_TargetAssemblyTypeName: HomeWindow, Assembly-CSharp
         m_MethodName: OnClickGoRenkinButton
         m_Mode: 1
@@ -1771,7 +1749,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1082785746}
+      - m_Target: {fileID: 2036636679}
         m_TargetAssemblyTypeName: HomeWindow, Assembly-CSharp
         m_MethodName: OnClickGoKajiButton
         m_Mode: 1
@@ -1973,6 +1951,7 @@ GameObject:
   - component: {fileID: 2036636678}
   - component: {fileID: 2036636677}
   - component: {fileID: 2036636676}
+  - component: {fileID: 2036636679}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2048,6 +2027,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2036636679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036636675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1124a05a88aaa148938dff61f40f66a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeObject: {fileID: 0}
+  FADE_COMPLETE: 0
+  reControllAfterFade: 0
+  inputSystem: {fileID: 831904789}
+  bgm: {fileID: 404347644}
+  se: {fileID: 1761816931}
+  GoBoukenButton: {fileID: 1249965402}
+  Canvas: {fileID: 1082785741}
+  homeBgm: {fileID: 8300000, guid: 6f0622fe0ec62084bac0fcb42aa42586, type: 3}
 --- !u!1 &2100199786
 GameObject:
   m_ObjectHideFlags: 0
