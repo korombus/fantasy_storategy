@@ -29,19 +29,8 @@ namespace Cainos.PixelArtTopDown_Basic
 
                 if(isNormalEvent){
                     if(Input.GetKeyDown(KeyCode.JoystickButton0)){
-                        switch(eventTarget.tag){
-                            case "Chest":
-                                int itemId = eventTarget.GetComponent<OpenChestEvent>().OpenChest();
-                                if(itemId > -1){
-                                    CommonSys.GetSystem<MapWindow>().DispEventMessage("何かを手に入れた。");
-                                } else {
-                                    CommonSys.GetSystem<MapWindow>().DispEventMessage("宝箱はからっぽだった。");
-                                }
-                            break;
-                            default:
-                                isNormalEvent = false;
-                            break;
-                        }
+                        // イベント管理
+                        this.GetComponent<CharactorEventController>().CharactorEvent(eventTarget);
                     }
                 }
 
@@ -81,6 +70,8 @@ namespace Cainos.PixelArtTopDown_Basic
                 animator.SetBool("IsMoving", dir.magnitude > 0);
 
                 GetComponent<Rigidbody2D>().velocity = speed * dir * (dash ? 1.5f : 1);
+            } else {
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
         }
 
@@ -91,8 +82,8 @@ namespace Cainos.PixelArtTopDown_Basic
                 GetComponent<GaugeStatus>().SetData(CommonSys.GetSystem<MapWindow>().MapClear, "帰還中");
             }
 
-            // 宝箱の開けられる領域に入ったら開けるイベントを発生できるようにする
-            if(other.gameObject.tag == "Chest"){
+            // 通常イベントを発生させる
+            if(EventTags.isNormalEventTag(other.gameObject.tag)){
                 isNormalEvent = true;
                 eventTarget = other.gameObject;
             }
@@ -105,8 +96,8 @@ namespace Cainos.PixelArtTopDown_Basic
                 GetComponent<GaugeStatus>().StopGauge();
             }
 
-            // 宝箱イベントの発生を抑制
-            if(other.gameObject.tag == "Chest"){
+            // 通常イベントの発生を抑制
+            if(EventTags.isNormalEventTag(other.gameObject.tag)){
                 isNormalEvent = false;
                 eventTarget = null;
             }

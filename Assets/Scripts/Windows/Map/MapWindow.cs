@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MapWindow : CommonSys
 {
@@ -16,18 +17,10 @@ public class MapWindow : CommonSys
 
     void Start(){
         base.BeforStart();
+        // イベントメッセージ用にadvシーンを呼んでおく
+        SceneManager.LoadSceneAsync(((int)SCENE_TYPE.SCENARIO), LoadSceneMode.Additive);
 
         StartCoroutine(base.AfterStart());
-    }
-
-    void Update(){
-        if(isEventMessage){
-            if(messageTimer > 1 && Input.GetKeyDown(KeyCode.JoystickButton0)){
-                CloseEventMessaeg();
-            }
-            // メッセージ表示後1秒待機を挟む
-            messageTimer += Time.deltaTime;
-        }
     }
 
     /// <summary>
@@ -35,24 +28,19 @@ public class MapWindow : CommonSys
     /// </summary>
     /// <param name="message">表示したい文字列</param>
     public void DispEventMessage(string message){
-        if(eventMessageWindow != null){
-            eventMessageWindow.SetActive(true);
-            eventMessageWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
-        }
+        // advシーンにテキストを流し込んで表示
+        SceneManager.GetSceneByBuildIndex((int)SCENE_TYPE.SCENARIO).GetRootGameObjects()[0].GetComponent<ScenarioWindow>().SetData("", bgm, se, CloseEventMessaeg, new TextAsset(message));
         PAUSE = true;
         isEventMessage = true;
-        messageTimer = 0;
     }
 
     /// <summary>
     /// イベントメッセージを閉じる
     /// </summary>
-    public void CloseEventMessaeg(){
-        if(eventMessageWindow != null){
-            eventMessageWindow.SetActive(false);
-        }
+    public bool CloseEventMessaeg(){
         isEventMessage = false;
         PAUSE = false;
+        return true;
     }
 
     /// <summary>

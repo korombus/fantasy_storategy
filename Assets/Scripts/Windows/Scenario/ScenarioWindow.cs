@@ -29,10 +29,13 @@ public class ScenarioWindow : MonoBehaviour
 
     public Func<bool> scenarioFinalyReturnFunc = null;
 
-    public void SetData(string senarioTxtName, CommonSound bgm, CommonSound se, Func<bool> retFunc)
+    public void SetData(string senarioTxtName, CommonSound bgm, CommonSound se, Func<bool> retFunc, TextAsset senarioTxtBody = null)
     {
         // テキスト呼び出し
-        TextAsset textData = Resources.Load<TextAsset>("Scenario/" + senarioTxtName);
+        TextAsset textData = senarioTxtBody;
+        if(textData == null){
+            textData = Resources.Load<TextAsset>("Scenario/" + senarioTxtName);
+        }
         readScenario = new ReadScenario(textData, bgm, se);
         readScenario.SetADVUI(
             scenarioText, 
