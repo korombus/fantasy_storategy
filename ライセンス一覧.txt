@@ -1,5 +1,9 @@
 ﻿ライセンス
 
+〇ライブラリ
+unity-excel-importer
+https://github.com/mikito/unity-excel-importer
+
 〇フォント
 Zen Maru Gothic https://fonts.google.com/specimen/Zen+Maru+Gothic/about
 
